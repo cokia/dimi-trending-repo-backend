@@ -4,7 +4,7 @@
         @click="click"
     >
         <slot>
-            <i class="fa fa-bars"/>
+            <i style="margin-top:0.3em;" class="fa fa-bars fa-2x"/>
         </slot>
     </div>
 </template>

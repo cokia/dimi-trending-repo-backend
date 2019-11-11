@@ -5,6 +5,7 @@ import VueAdsBar from './components/Bar';
 import VueAdsDrawer from './components/Drawer';
 import VueAdsMinifyButton from './components/buttons/Minify';
 import VueAdsHideButton from './components/buttons/Hide';
+import maincard from './components/maincard';
 
 export {
     VueAdsLayout,
@@ -12,4 +13,5 @@ export {
     VueAdsDrawer,
     VueAdsMinifyButton,
     VueAdsHideButton,
+    maincard,
 };

@@ -24,7 +24,7 @@
         </v-list-item-avatar>
 
         <v-list-item-content>
-          <v-list-item-title>  Cokia(20기 WP 한우영)</v-list-item-title>
+          <v-list-item-title> <v-list-item-title>  Cokia(19기 WP 한우영)</v-list-item-title></v-list-item-title>
         </v-list-item-content>
 
         <v-row

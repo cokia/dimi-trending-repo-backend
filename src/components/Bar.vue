@@ -1,5 +1,6 @@
 <template>
     <div
+        
         :class="barClasses"
         class="vue-ads-w-full"
     >
