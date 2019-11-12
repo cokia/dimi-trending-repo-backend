@@ -59,13 +59,14 @@
         </div>
       </vue-ads-drawer>
       <vue-ads-drawer
+        style="display:flex;"
         v-if="!isPhone"
         slot="right-drawer"
         :fixed="true"
         :right="true"
-        class="bg-blue-600"
+        class="bg-pink-200"
       >
-        <div slot="top">new</div>
+        <mycard></mycard> 
       </vue-ads-drawer>
       <maincard style="margin-left:1.5em;margin-right:1.5em;margin-top:1.5em;"></maincard>
       <br />
@@ -84,6 +85,7 @@ import VueAdsBar from "./components/Bar";
 import VueAdsDrawer from "./components/Drawer";
 import VueAdsHideButton from "./components/buttons/Hide";
 import maincard from "./components/maincard";
+import mycard from "./components/mycard"
 
 export default {
   name: "App",
@@ -93,7 +95,8 @@ export default {
     VueAdsDrawer,
     VueAdsBar,
     VueAdsLayout,
-    maincard
+    maincard,
+    mycard
   },
 
   data() {
