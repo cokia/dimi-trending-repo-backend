@@ -1,16 +1,18 @@
 <template>
+<div>
 <v-card
     class="mx-auto"
-    color="#26c6da"
+    color="#FFFFFF"
     dark
     max-width="1200"
+    style="border-right: 1em solid gold;"
   >
     <v-card-title>
-      <v-icon large left>mdi-language-javascript</v-icon>
-      <span class="title font-weight-light">cokia/dimi-tranding-repo</span>
+      <v-icon style="color:#F0DB4F" large left>mdi-language-javascript</v-icon>
+      <span style="color:#323330;" class="title font-weight-light">cokia/dimi-tranding-repo</span>
     </v-card-title>
 
-    <v-card-text class="headline font-weight-bold">
+    <v-card-text style="color:#323330;" class="headline font-weight-bold">
       "디미고의 핫한 레포들을 모아서 보여주는 프로젝트입니다. 뷰는 정말 어렵고 짜증나고 무지 귀찮군요. 으아아악 반응형 극혐 프론트엔드 개발자 존경합니다."
     </v-card-text>
 
@@ -24,20 +26,34 @@
         </v-list-item-avatar>
 
         <v-list-item-content>
-          <v-list-item-title> <v-list-item-title>  Cokia(19기 WP 한우영)</v-list-item-title></v-list-item-title>
+          <v-list-item-title> <v-list-item-title style="color:#323330;">  Cokia(19기 WP 한우영)</v-list-item-title></v-list-item-title>
         </v-list-item-content>
 
         <v-row
           align="center"
           justify="end"
         >
-          <v-icon class="mr-1">mdi-star</v-icon>
-          <span class="subheading mr-2">256</span>
+          <v-icon style="color:#323330;" class="mr-1">mdi-star</v-icon>
+          <span style="color:#323330;" class="subheading mr-2">256</span>
           <span class="mr-1">·</span>
-          <v-icon class="mr-1">mdi-source-fork</v-icon>
-          <span class="subheading">45</span>
+          <v-icon style="color:#323330;" class="mr-1">mdi-source-fork</v-icon>
+          <span  style="color:#323330;" class="subheading">45</span>
         </v-row>
       </v-list-item>
     </v-card-actions>
+              
   </v-card>
+    <v-btn
+    style="position:relative;margin-top:10px;"
+              fab
+              max-height="30px"
+              max-width="30px"
+              color="cyan accent-2"
+              top
+              right
+              absolute
+            >
+              <v-icon>mdi-plus</v-icon>
+            </v-btn>
+</div>
   </template>
