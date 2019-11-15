@@ -1,5 +1,5 @@
 module.exports = {
-  publicPath: "dimi-tranding-repo",
+  // publicPath: "dimi-tranding-repo",
   "transpileDependencies": [
     "vuetify"
   ]
