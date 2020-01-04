@@ -1,0 +1,27 @@
+{
+  "name": "dimi-tranding-repo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bin/app.js",
+  "scripts": {
+    "start": "node bin/app.js",
+    "serve": "rm -rf bin && tsc-watch -p . --onSuccess \"node .\"",
+    "testgitapi": "rm -rf bin && tsc-watch -p . --onSuccess \"node bin/githubapi.js\"",
+    "prestart": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@elastic/elasticsearch": "^7.5.0",
+    "@octokit/rest": "^16.36.0",
+    "express": "^4.17.1",
+    "node": "^13.5.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.2",
+    "@types/node": "^13.1.4",
+    "tsc-watch": "^4.0.0",
+    "typescript": "^3.7.4"
+  }
+}
