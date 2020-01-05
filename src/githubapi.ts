@@ -1,11 +1,7 @@
+import { response } from "express";
+
 const Octokit = require("@octokit/rest");
 const octokit = new Octokit();
-
-export enum EReturnType {
-  Both,
-  UserImage,
-  UserName
-}
 
 interface IRepoStargazer {
     login: string;
@@ -28,30 +24,24 @@ interface IRepoStargazer {
     site_admin: boolean
 }
 
-export async function getRepoStargazers(owner: string, repo: string, returnType: EReturnType) {
+export async function getRepoStargazers(owner: string, repo: string) {
   const { data }: { data: IRepoStargazer[] } =
     await octokit.activity.listStargazersForRepo({ owner, repo });
-if(returnType ==EReturnType.Both){
-  data.forEach((repoStargazer: IRepoStargazer) => {
-      console.log(repoStargazer.login);
-      console.log(repoStargazer.avatar_url);
-  });
-}
-
-else if(returnType ==EReturnType.UserImage){
-    data.forEach((repoStargazer: IRepoStargazer) => {
-        console.log(repoStargazer.avatar_url);
-    });
-  }
-else if(returnType ==EReturnType.UserName){
     data.forEach((repoStargazer: IRepoStargazer) => {
         console.log(repoStargazer.login);
     });
   }
 
+
+export async function getRepoLanguage(owner: string, repo: string){
+    const { data } = await octokit.repos.listLanguages({owner , repo});
+    const languageList = Object.keys(data)[0];
+    if(languageList.length <= 0) {
+      console.log('없음');
+    } else {
+      console.log(languageList);
+    } 
+
 }
 
-
-
-getRepoStargazers("cokia", "dimi-tranding-repo", EReturnType.UserName);
-
+getRepoLanguage("cokia","flask-login")

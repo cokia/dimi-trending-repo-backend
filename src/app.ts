@@ -1,4 +1,6 @@
 import express, { Application } from "express"
+import {getRepoStargazers, getRepoLanguage} from "./githubapi"
+import {addDBUser} from "./db"
 
 class App {
   public application: Application;
@@ -18,9 +20,19 @@ app.listen(3000,() => {
 });
 
 app.get('/', function(req, res) {
-  res.send('Welcome to dimi-tranding-repo api server!');
+  res.status(200).send('Welcome to dimi-tranding-repo api server!');
 });
 
-app.get('/', function(req, res) {
-  res.send('hello world');
+app.get('/useradd', function(req, res) {
+  res.status(400).send({ error: "is still develop..OTL i will dev ASAP :D" });
 });
+
+app.get('/getrankedrepo', function(req, res) {
+  res.status(400).send({ error: "is still develop..OTL i will dev ASAP :D" });
+});
+
+
+app.get('/useradd', function(req, res) {
+  res.status(400).send({ error: "is still develop..OTL i will dev ASAP :D" });
+});
+
