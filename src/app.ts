@@ -47,7 +47,7 @@ app.post('/useradd', function(req, res) {
 
 } catch (err) {
     console.error(err)
-    res.status(500);
+    res.status(500).send(err);
   }
 });
 
