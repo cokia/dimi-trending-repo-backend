@@ -27,12 +27,27 @@ app.get('/useradd', function(req, res) {
   res.status(400).send({ error: "is still develop..OTL i will dev ASAP :D" });
 });
 
-app.get('/getrankedrepo', function(req, res) {
+app.get('/get/rankedrepo', function(req, res) {
+  res.status(400).send({ error: "is still develop..OTL i will dev ASAP :D" });
+});
+
+app.get('/get/rankeduser', function(req, res) {
   res.status(400).send({ error: "is still develop..OTL i will dev ASAP :D" });
 });
 
 
-app.get('/useradd', function(req, res) {
-  res.status(400).send({ error: "is still develop..OTL i will dev ASAP :D" });
+app.post('/useradd', function(req, res) {
+  let name:string = req.body.name
+  let department:string = req.body.department
+  let year:number = req.body.year
+  let githubid:string = req.body.githubid
+  try {
+    addDBUser(name,department,year,githubid)
+    res.status(200);
+
+} catch (err) {
+    console.error(err)
+    res.status(500);
+  }
 });
 

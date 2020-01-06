@@ -44,4 +44,3 @@ export async function getRepoLanguage(owner: string, repo: string){
 
 }
 
-getRepoLanguage("cokia","flask-login")
