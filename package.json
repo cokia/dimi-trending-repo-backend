@@ -15,7 +15,11 @@
   "dependencies": {
     "@elastic/elasticsearch": "^7.5.0",
     "@octokit/rest": "^16.36.0",
+    "@types/cors": "^2.8.6",
+    "@types/mongoose": "^5.5.39",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
+    "mongoose": "^5.8.5",
     "node": "^13.5.0"
   },
   "devDependencies": {
