@@ -201,7 +201,7 @@
       <script src="javascripts/all-c5541673.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;curl&quot;]">
+  <body class="index" data-languages="[&quot;URL&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -211,7 +211,7 @@
     <div class="toc-wrapper">
       <img src="images/logo-1e815a84.png" class="logo" alt="Logo" />
         <div class="lang-selector">
-              <a href="#" data-language-name="curl">curl</a>
+              <a href="#" data-language-name="URL">URL</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -233,10 +233,10 @@
               </ul>
           </li>
           <li>
-            <a href="#get-info" class="toc-h1 toc-link" data-title="GET INFO">GET INFO</a>
+            <a href="#get-info-get" class="toc-h1 toc-link" data-title="GET INFO(/get)">GET INFO(/get)</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#get-ranked-repo" class="toc-h2 toc-link" data-title="GET Ranked repo">GET Ranked repo</a>
+                    <a href="#get-ranked-repo-get-rankedrepo" class="toc-h2 toc-link" data-title="GET Ranked repo(/get/rankedrepo)">GET Ranked repo(/get/rankedrepo)</a>
                   </li>
                   <li>
                     <a href="#get-a-ranked-user" class="toc-h2 toc-link" data-title="Get a ranked user">Get a ranked user</a>
@@ -256,13 +256,15 @@
 <p>데이터베이스는 엘라스틱 서치를 기반으로 개발되었습니다</p>
 
 <p>https://github.com/cokia/dimi-tranding-repo-backend </p>
+
+<p>또한 이 프로젝트에서 수집된 디미고인들의 깃허브 아이디를 제공하는 API를 별도로 제공합니다 :)  </p>
 <h1 id='useradd'>유저등록 (/useradd)</h1>
 <blockquote>
 <p>새로운 유저정도를 디비에 입력하기 위해 이 API를 사용하세요 :) </p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>curl -d <span class="s2">"name=한우영&amp;department=WP&amp;year=19&amp;githubid=cokia"</span> -X POST https://tandingrepoapi.hanukoon.com/useradd
+<pre class="highlight shell tab-shell"><code>curl -X POST <span class="s2">"https://api.hanukoon.com:1325/api/v1/useradd?name=한우영&amp;department=WP&amp;year=19&amp;githubid=cokia"</span>
 </code></pre><h3 id='http-request'>HTTP Request</h3>
-<p><code>POST https://tandingrepoapi.hanukoon.com/useradd?name=&lt;이름&gt;&amp;department=&lt;학과&gt;&amp;year=&lt;기수&gt;&amp;githubid=&lt;깃허브아이디&gt;</code></p>
+<p><code>POST https://api.hanukoon.com:1325/api/v1/useradd?name=&lt;이름&gt;&amp;department=&lt;학과&gt;&amp;year=&lt;기수&gt;&amp;githubid=&lt;깃허브아이디&gt;</code></p>
 <h3 id='query-parameters'>Query Parameters</h3>
 <table><thead>
 <tr>
@@ -272,26 +274,26 @@
 </thead><tbody>
 <tr>
 <td>name</td>
-<td>이름을 적어주세요 😀</td>
+<td>이름을 적어주세요. 😀</td>
 </tr>
 <tr>
 <td>department</td>
-<td>학과를 적어주세요🎓 (WP/HD/DC/EB)</td>
+<td>학과를 적어주세요. 🎓 (WP/HD/DC/EB/SEX)</td>
 </tr>
 <tr>
 <td>year</td>
-<td>기수를 적어주세요⏳ (2020학년도 신입생의 경우 19)</td>
+<td>기수를 적어주세요. ⏳ (2020학년도 신입생의 경우 19)</td>
 </tr>
 <tr>
 <td>githubid</td>
-<td>깃허브 <strong>아이디</strong>를 적어주세요👨‍💻 (ex:github.com/cokia 일 경우 유저네임이 hanukoon 이라도 cokia를 적어줘야함)</td>
+<td>깃허브 <strong>아이디</strong>를 적어주세요. 👨‍💻 (ex:github.com/cokia 일 경우 유저네임이 hanukoon 이라도 cokia를 적어줘야함)</td>
 </tr>
 </tbody></table>
 
 <aside class="notice">
 해당 데이터는 로컬스토리지에 저장되어야 합니다! 서버에서는 ElasticSerach User 인덱스에 기록됩니다 :) 
 </aside>
-<h1 id='get-info'>GET INFO</h1><h2 id='get-ranked-repo'>GET Ranked repo</h2><pre class="highlight shell tab-shell"><code>curl -X GET https://tandingrepoapi.hanukoon.com/getrankedrepo/&lt;pages&gt;
+<h1 id='get-info-get'>GET INFO(/get)</h1><h2 id='get-ranked-repo-get-rankedrepo'>GET Ranked repo(/get/rankedrepo)</h2><pre class="highlight shell tab-shell"><code>curl -X GET <span class="s2">"https://api.hanukoon.com:1325/api/v1/get/rankedrepo?page=1"</span>
 </code></pre>
 <blockquote>
 <p>응답은 이런식으로 json으로 날라옵니다!</p>
@@ -324,7 +326,7 @@
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h3 id='http-request-2'>HTTP Request</h3>
-<p><code>GET https://tandingrepoapi.hanukoon.com/getrankedrepo/&lt;pages&gt;</code></p>
+<p><code>GET https://api.hanukoon.com:1325/api/v1/get/rankedrepo/&lt;pages&gt;</code></p>
 <h3 id='query-parameters-2'>Query Parameters</h3>
 <table><thead>
 <tr>
@@ -338,15 +340,10 @@
 </tr>
 </tbody></table>
 
-<aside class="warning">
-  미안해요 - 개발자놈이 멍청해서 30개 이하가 리턴될때는 생각을 못했어요. 최대한 빨리 방법을 찾아볼게요!
-</aside>
-
 <aside class="success">
  축하해요! - 방금 핵심기능 api 사용법을 터득하셨어요!
 </aside>
-<h2 id='get-a-ranked-user'>Get a ranked user</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
+<h2 id='get-a-ranked-user'>Get a ranked user</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.hanukoon.com:1325/api/v1/get/rankedrepo?page=1"</span>
 </code></pre>
 <blockquote>
 <p>응답은 이런식으로 json으로 날라옵니다!</p>
@@ -359,7 +356,7 @@
   </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h3 id='http-request-3'>HTTP Request</h3>
-<p><code>GET https://tandingrepoapi.hanukoon.com/getrankedrepo/&lt;pages&gt;</code></p>
+<p><code>GET https://api.hanukoon.com:1325/api/v1/get/rankedrepo/&lt;pages&gt;</code></p>
 <h3 id='query-parameters-3'>Query Parameters</h3>
 <table><thead>
 <tr>
@@ -373,14 +370,10 @@
 </tr>
 </tbody></table>
 
-<aside class="warning">
-  미안해요 - 개발자놈이 멍청해서 30명 이하가 리턴될때는 생각을 못했어요. 최대한 빨리 방법을 찾아볼게요!
-</aside>
-
       </div>
       <div class="dark-box">
           <div class="lang-selector">
-                <a href="#" data-language-name="curl">curl</a>
+                <a href="#" data-language-name="URL">URL</a>
           </div>
       </div>
     </div>
