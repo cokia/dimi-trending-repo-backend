@@ -92,3 +92,9 @@ repo.save();
 export async function callFromUserDB(username:string){
   return await User.findOne({ username });
 }
+
+// join.find({userid: req.query.id}, {userid: 0,classname: 1,classid: 1,classorganizer: 1},  function(err, joins){
+//   if(err) return res.status(500).json({error: err});
+//   if(joins.length === 0) return res.status(404).json({error: 'joindata not found'});
+//   res.json(joins);
+// });

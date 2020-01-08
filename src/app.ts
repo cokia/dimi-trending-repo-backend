@@ -16,7 +16,7 @@ const app = new App().application;
 app.use(cors());
 // app.get("/", (req: express.Request, res: express.Response) =>{
 
-app.listen(3000,() => {
+app.listen(1325,() => {
   console.log("✅Start dimi-tranding-repo api server✅")
 });
 
@@ -30,6 +30,7 @@ app.get('/api/v1/get/rankedrepo', function(req, res) {
 
 app.get('/api/v1/get/rankeduser', function(req, res) {
   res.status(400).send({ error: "is still develop..OTL i will dev ASAP :D" });
+
 });
 
 
@@ -46,4 +47,5 @@ app.post('/api/v1/useradd', function(req, res) {
     console.error(err)
     res.status(500).send(err);
   }
+  //getRepoNewUser(githubid);
 })
