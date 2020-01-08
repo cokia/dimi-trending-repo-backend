@@ -24,10 +24,6 @@ app.get('/', function(req, res) {
   res.status(200).send('Welcome to dimi-tranding-repo api server!');
 });
 
-app.get('/api/v1/useradd', function(req, res) {
-  res.status(400).send({ error: "is still develop..OTL i will dev ASAP :D" });
-});
-
 app.get('/api/v1/get/rankedrepo', function(req, res) {
   res.status(400).send({ error: "is still develop..OTL i will dev ASAP :D" });
 });
