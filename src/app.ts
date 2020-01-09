@@ -16,7 +16,7 @@ const app = new App().application;
 app.use(cors());
 // app.get("/", (req: express.Request, res: express.Response) =>{
 
-app.listen(1325,() => {
+app.listen(443,() => {
   console.log("✅Start dimi-tranding-repo api server✅")
 });
 

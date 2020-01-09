@@ -68,18 +68,18 @@ export async function addDBUser(name: string, department: string, year: string, 
 user.save()
 }
 
-export async function addDBRepo(rank:string, username:string, reponame:string, repourl:string, description:string, stargazer:[string], stargazer_count:string, forkazger:string, language:string){
+export async function addDBRepo(username:string, reponame:string, repourl:string, description:string, stargazer:[string], stargazer_count:string, forkazger:string, language:string){
   const Repo = mongoose.model('repo', repoSchema);
   const userInfo = await callFromUserDB(username);
   if(!userInfo) return;
   const { department, year, githubid } = userInfo;
   let repo = new Repo({
-    rank,
     username,
     department, 
     year,
     githubid,
     reponame,
+    repourl,
     description,
     stargazer,
     stargazer_count,
@@ -92,9 +92,11 @@ repo.save();
 export async function callFromUserDB(username:string){
   return await User.findOne({ username });
 }
-
-// join.find({userid: req.query.id}, {userid: 0,classname: 1,classid: 1,classorganizer: 1},  function(err, joins){
-//   if(err) return res.status(500).json({error: err});
-//   if(joins.length === 0) return res.status(404).json({error: 'joindata not found'});
-//   res.json(joins);
-// });
+export async function repoDBRank(){
+Repo.find(function(err, repos){
+  console.log(repos);
+  return(repos);
+});
+}
+addDBRepo("cokia","dimi-tranding-repo/backend")
+repoDBRank()
