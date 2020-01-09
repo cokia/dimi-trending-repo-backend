@@ -98,5 +98,4 @@ Repo.find(function(err, repos){
   return(repos);
 });
 }
-addDBRepo("cokia","dimi-tranding-repo/backend")
-repoDBRank()
+// repoDBRank()
