@@ -20,7 +20,7 @@ app.all('/*', function(req, res, next) {
   next();
 });
 
-app.listen(443,() => {
+app.listen(3001,() => {
   console.log("✅ Start dimi-tranding-repo api server✅")
   // getAllRepo("cokia")
 
