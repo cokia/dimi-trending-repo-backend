@@ -5,7 +5,7 @@
   "main": "bin/app.js",
   "scripts": {
     "start": "node bin/app.js",
-    "serve": "rm -rf bin && tsc-watch -p . --onSuccess \"node .\"",
+    "serve": "rm -rf bin && tsc-watch -p . --onSuccess \"node . --unhandled-rejections=none\"",
     "testgitapi": "rm -rf bin && tsc-watch -p . --onSuccess \"node bin/githubapi.js\"",
     "prestart": "tsc"
   },

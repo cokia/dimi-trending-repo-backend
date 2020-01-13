@@ -1,14 +1,13 @@
 import mongoose, { Types, Document } from "mongoose"
 
-const db = mongoose.connection;
 const Schema = mongoose.Schema;
 
-db.on('error', console.error);
-db.once('open', function(){
-  console.log("Connected to mongod server");
+mongoose.connection.on('error', console.error);
+mongoose.connection.once('open', function(){
+  console.log("✅  ㅈConnected to mongod server✅");
 });
 
-mongoose.connect('mongodb://docker.cloudus.io/dimi-tranding-repo-test');
+mongoose.connect('mongodb://docker.cloudus.io/dimi-tranding-repo-test',{useNewUrlParser: true,useUnifiedTopology: true});
 
 interface IRepo extends Document {
   rank: string;
@@ -36,10 +35,10 @@ const repoSchema = new Schema({
   description:{type: String, required: true},
   stargazer: {type: Array, required: true},
   stargazer_count:{type: String, required: true},
-  forkazger: {type: String, required: true},
+  forkazger_count: {type: String, required: true},
   language: {type: String, required: true},
 });
-
+  
 const Repo = mongoose.model<IRepo>('repo', repoSchema);
 
 interface IUser extends Document {
@@ -57,18 +56,20 @@ const userSchema = new Schema({
 });
 
 const User = mongoose.model<IUser>('user', userSchema);
-export async function addDBUser(name: string, department: string, year: string, githubid: string){
+export async function addDBUser(name: string, department: string, year: string, githubid: string, starcount: string){
   let user = new User({
     name: name,
     department: department,
     year: year,
-    githubid: githubid
+    githubid: githubid,
+    starcount: starcount
 });
  
 user.save()
 }
 
-export async function addDBRepo(username:string, reponame:string, repourl:string, description:string, stargazer:[string], stargazer_count:string, forkazger:string, language:string){
+export async function addDBRepo(username:string, reponame:string, repourl:string, description:string,  stargazer:string[],stargazer_count:string, forkazger_count:string, language:string){
+  try {
   const Repo = mongoose.model('repo', repoSchema);
   const userInfo = await callFromUserDB(username);
   if(!userInfo) return;
@@ -83,19 +84,28 @@ export async function addDBRepo(username:string, reponame:string, repourl:string
     description,
     stargazer,
     stargazer_count,
-    forkazger,
+    forkazger_count,
     language,
 });
 repo.save();
+console.log("finish add")
 }
+finally{
+  return
+}}
 
 export async function callFromUserDB(username:string){
   return await User.findOne({ username });
 }
 export async function repoDBRank(){
+try{
 Repo.find(function(err, repos){
   console.log(repos);
   return(repos);
 });
+} catch (error) {
+  console.log('this');
+  }
 }
+
 // repoDBRank()
