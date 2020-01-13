@@ -48,7 +48,7 @@ app.post('/api/v1/useradd', function(req, res) {
 
   let githubid = req.query.githubid;
   try {
-    addDBUser(name,department,year,githubid,1)
+    addDBUser(name,department,year,githubid,"1")
     res.status(200).send("success");
 } catch (err) {
     console.error(err)
