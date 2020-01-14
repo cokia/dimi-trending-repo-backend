@@ -22,7 +22,7 @@ app.all('/*', function(req, res, next) {
 
 app.listen(3001,() => {
   console.log("✅ Start dimi-tranding-repo api server✅")
-  // getAllRepo("cokia")
+  getAllRepo("cokia")
 
 });
 

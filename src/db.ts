@@ -10,7 +10,7 @@ mongoose.connection.once('open', function(){
 mongoose.connect('mongodb://docker.cloudus.io/dimi-tranding-repo-test',{useNewUrlParser: true,useUnifiedTopology: true});
 
 interface IRepo extends Document {
-  rank: string;
+  // rank: string;
   username: string;
   department: string;
   year: string;
@@ -25,7 +25,7 @@ interface IRepo extends Document {
 }
 
 const repoSchema = new Schema({
-  rank: {type: String, required: true},
+  // rank: {type: String, required: true},
   username: {type: String, required: true},
   department: {type: String, required: true},
   year: {type:String, required:true},
@@ -36,7 +36,7 @@ const repoSchema = new Schema({
   stargazer: {type: Array, required: true},
   stargazer_count:{type: String, required: true},
   forkazger_count: {type: String, required: true},
-  language: {type: String, required: true},
+  language: {type: String, required: false},
 });
   
 const Repo = mongoose.model<IRepo>('repo', repoSchema);
@@ -68,11 +68,14 @@ export async function addDBUser(name: string, department: string, year: string, 
 user.save()
 }
 
-export async function addDBRepo(username:string, reponame:string, repourl:string, description:string,  stargazer:string[],stargazer_count:string, forkazger_count:string, language:string){
+export async function addDBRepo(username:string, reponame:string, repourl:string, description:string,  stargazer:string[],stargazer_count:string, forkazger_count:string, language:string|undefined){
   try {
   const Repo = mongoose.model('repo', repoSchema);
   const userInfo = await callFromUserDB(username);
-  if(!userInfo) return;
+  if(!userInfo) {
+    console.log("no user info. user add error")
+    return;
+  }
   const { department, year, githubid } = userInfo;
   let repo = new Repo({
     username,
@@ -87,15 +90,19 @@ export async function addDBRepo(username:string, reponame:string, repourl:string
     forkazger_count,
     language,
 });
+console.log(repo)
 repo.save();
 console.log("finish add")
+}
+catch(error){
+console.log(error)
 }
 finally{
   return
 }}
 
 export async function callFromUserDB(username:string){
-  return await User.findOne({ username });
+  return await User.findOne({ githubid:username });
 }
 export async function repoDBRank(){
 try{
