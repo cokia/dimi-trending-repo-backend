@@ -101,35 +101,49 @@ interface IRepoInformation {
       default_branch:string;
 }
 
-  export async function getRepoStargazers(owner: string, repo: string) {
-  const { data }: { data: IRepoStargazer[] } =
+  export async function getRepoStargazers(owner: string, repo: string): Promise<string[]> {
+    const value: string[] = [];
+    try{
+    const { data }: { data: IRepoStargazer[] } =
   await octokit.activity.listStargazersForRepo({ owner, repo });
-  let value:string[] = new Array();
   let i = 0;
   data.forEach((repoStargazer: IRepoStargazer) => {
   value[i] = repoStargazer.login
   i++;
-  })
-return value
+  });
+return value;
+} catch (error) {}
+return value;
 }
 
 
-export async function getRepoLanguage(owner: string, repo: string){
-    const { data } = await octokit.repos.listLanguages({owner , repo});
+export async function getRepoLanguage(owner: string, repo: string): Promise<string> {
+  try{ 
+  const { data } = await octokit.repos.listLanguages({owner , repo});
     const languageList = Object.keys(data)[0];
-      return(languageList);
-}
+    if(!languageList) return '';
+    return(languageList);
+  } catch (error) {
+    return '';
+  }
+  }
 
 export async function getAllRepo(username: string){
+  try{
   const { data }: { data: IRepoInformation[] } = await octokit.repos.listForUser({username})
-  data.forEach(async (repoStargazer: IRepoInformation) => {
-  const _name = Object.keys(data)[2]
-  const _url = Object.keys(data)[6]
-  const _description = Object.keys(data)[7]
-  const _stargazer_count = Object.keys(data)[54]
-  const _stargazer = await getRepoStargazers(username, _name)
-  const _language = await getRepoLanguage(username, _name)
-  const _forkagzer_count = Object.keys(data)[68]
+  // console.log(data);
+
+  data.forEach(async (_data: IRepoInformation) => {
+  const _name = _data.name
+  const _url = _data.url
+  const _description = _data.description
+  const _stargazer_count = _data.stargazers_count
+  const _stargazer = await getRepoStargazers(_data.owner, _data.name)
+  const _language = await getRepoLanguage(_data.owner, _data.name)
+  const _forkagzer_count = _data.forks_count
   addDBRepo(username,_name,_url,_description,_stargazer,_stargazer_count,_forkagzer_count,_language)
-});
+  });
+} catch (error) {
+  // console.log('this1');
+  }
 }

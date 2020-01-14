@@ -1,5 +1,5 @@
 import express, { Application } from "express"
-import {getRepoStargazers, getRepoLanguage, getAllRepo} from "./githubapi"
+import {getAllRepo} from "./githubapi"
 import {addDBUser} from "./db"
 import cors from "cors"
 
@@ -20,9 +20,9 @@ app.all('/*', function(req, res, next) {
   next();
 });
 
-app.listen(443,() => {
+app.listen(3001,() => {
   console.log("✅ Start dimi-tranding-repo api server✅")
-  getAllRepo("cokia")
+  // getAllRepo("cokia")
 
 });
 
@@ -48,11 +48,11 @@ app.post('/api/v1/useradd', function(req, res) {
 
   let githubid = req.query.githubid;
   try {
-    // addDBUser(name,department,year,githubid)
+    addDBUser(name,department,year,githubid,"1")
     res.status(200).send("success");
 } catch (err) {
     console.error(err)
     res.status(500).send(err);
   }
-  //getRepoNewUser(githubid);
+  getAllRepo(githubid);
 })

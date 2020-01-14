@@ -7,7 +7,7 @@ mongoose.connection.once('open', function(){
   console.log("✅  ㅈConnected to mongod server✅");
 });
 
-mongoose.connect('mongodb://docker.cloudus.io/dimi-tranding-repo-test',{useNewUrlParser: true});
+mongoose.connect('mongodb://docker.cloudus.io/dimi-tranding-repo-test',{useNewUrlParser: true,useUnifiedTopology: true});
 
 interface IRepo extends Document {
   rank: string;
@@ -68,7 +68,7 @@ export async function addDBUser(name: string, department: string, year: string, 
 user.save()
 }
 
-export async function addDBRepo(username:string, reponame:string, repourl:string, description:string, stargazer:string[], stargazer_count:string, forkazger_count:string, language:string){
+export async function addDBRepo(username:string, reponame:string, repourl:string, description:string,  stargazer:string[],stargazer_count:string, forkazger_count:string, language:string){
   try {
   const Repo = mongoose.model('repo', repoSchema);
   const userInfo = await callFromUserDB(username);
@@ -98,10 +98,14 @@ export async function callFromUserDB(username:string){
   return await User.findOne({ username });
 }
 export async function repoDBRank(){
+try{
 Repo.find(function(err, repos){
   console.log(repos);
   return(repos);
 });
+} catch (error) {
+  console.log('this');
+  }
 }
 
 // repoDBRank()
