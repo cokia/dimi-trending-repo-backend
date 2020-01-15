@@ -121,10 +121,13 @@ export async function getRepoLanguage(owner: string, repo: string): Promise<stri
   try{ 
     const { data } = await octokit.repos.listLanguages({owner , repo});
     const languageList:string = Object.keys(data)[0];
-    if(!languageList) return '';
-          return(languageList);
+    if(!languageList) {
+      console.log("no language")
+      return '';
+  }
+    return(languageList);
   } catch(error){
-    console.log(error)
+    // console.log("this2")
     }
     finally{
     }
@@ -133,14 +136,15 @@ export async function getRepoLanguage(owner: string, repo: string): Promise<stri
 export async function getAllRepo(username: string){
   try{
   const { data }: { data: IRepoInformation[] } = await octokit.repos.listForUser({username})
-  console.log("test");
+  // console.log("test");
   data.forEach(async (_data: IRepoInformation) => {
   const _name = _data.name
   const _url = _data.url
   const _description = _data.description
   const _stargazer_count = _data.stargazers_count
   const _stargazer = await getRepoStargazers(_data.owner, _data.name)
-  const _language = await getRepoLanguage(_data.owner, _data.name)
+  const _language =  await getRepoLanguage(_data.owner, _data.name)
+
   const _forkagzer_count = _data.forks_count
   addDBRepo(username,_name,_url,_description,_stargazer,_stargazer_count,_forkagzer_count,_language)
   });

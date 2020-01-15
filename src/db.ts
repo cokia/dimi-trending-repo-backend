@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 mongoose.connection.on('error', console.error);
 mongoose.connection.once('open', function(){
-  console.log("✅  ㅈConnected to mongod server✅");
+  console.log("✅ Connected to mongod server✅");
 });
 
 mongoose.connect('mongodb://docker.cloudus.io/dimi-tranding-repo-test',{useNewUrlParser: true,useUnifiedTopology: true});
@@ -32,7 +32,7 @@ const repoSchema = new Schema({
   githubid : {type:String, required:true},
   reponame: {type: String, required: true},
   repourl: {type: String, required: true},
-  description:{type: String, required: true},
+  description:{type: String, required: false},
   stargazer: {type: Array, required: true},
   stargazer_count:{type: String, required: true},
   forkazger_count: {type: String, required: true},
@@ -76,6 +76,13 @@ export async function addDBRepo(username:string, reponame:string, repourl:string
     console.log("no user info. user add error")
     return;
   }
+  if(!language){
+    console.log("No language info")
+    language = "no"
+  }
+  if(!description){
+    console.log("no description")
+  }
   const { department, year, githubid } = userInfo;
   let repo = new Repo({
     username,
@@ -90,9 +97,9 @@ export async function addDBRepo(username:string, reponame:string, repourl:string
     forkazger_count,
     language,
 });
-console.log(repo)
+// console.log(repo)
 repo.save();
-console.log("finish add")
+// console.log("finish add")
 }
 catch(error){
 console.log(error)
@@ -107,11 +114,11 @@ export async function callFromUserDB(username:string){
 export async function repoDBRank(){
 try{
 Repo.find(function(err, repos){
-  console.log(repos);
+  // console.log(repos);
   return(repos);
 });
 } catch (error) {
-  console.log('this');
+  console.log('Error!');
   }
 }
 
