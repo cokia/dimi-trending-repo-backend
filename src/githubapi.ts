@@ -101,19 +101,26 @@ interface IRepoInformation {
       default_branch:string;
 }
 
-  export async function getRepoStargazers(owner: string, repo: string): Promise<string[]> {
-    const value: string[] = [];
-    try{
-    const { data }: { data: IRepoStargazer[] } =
-  await octokit.activity.listStargazersForRepo({ owner, repo });
-  let i = 0;
-  data.forEach((repoStargazer: IRepoStargazer) => {
-  value[i] = repoStargazer.login
-  i++;
-  });
-return value;
-} catch (error) {}
-return value;
+  export async function getRepoStargazers(owner: string, repo: string): Promise<string[] | undefined>  {
+//     const value: string[] = [];
+//     try{
+//     const { data }: { data: IRepoStargazer[] } = await octokit.activity.listStargazersForRepo({ owner, repo });
+//   let i = 0;
+//   data.forEach((repoStargazer: IRepoStargazer) => {
+//   value[i] = repoStargazer.login
+//   i++;
+//   });
+// return value;
+// } catch (error) {}
+// return value;
+try{
+const { data }: {data: IRepoStargazer[];} = await octokit.activity.listStargazersForRepo({ owner, repo });
+console.log(data.map(e => e.login))
+return data.map(e => e.login)
+}
+catch (error) {
+  console.log("this2")
+}
 }
 
 

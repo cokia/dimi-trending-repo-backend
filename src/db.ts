@@ -68,7 +68,7 @@ export async function addDBUser(name: string, department: string, year: string, 
 user.save()
 }
 
-export async function addDBRepo(username:string, reponame:string, repourl:string, description:string,  stargazer:string[],stargazer_count:string, forkazger_count:string, language:string|undefined){
+export async function addDBRepo(username:string, reponame:string, repourl:string, description:string,  stargazer:string[]|undefined,stargazer_count:string, forkazger_count:string, language:string|undefined){
   try {
   const Repo = mongoose.model('repo', repoSchema);
   const userInfo = await callFromUserDB(username);
