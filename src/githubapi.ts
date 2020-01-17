@@ -118,10 +118,6 @@ export async function getRepoLanguage(owner: string, repo: string): Promise<stri
 	try {
 		const { data } = await octokit.repos.listLanguages({ owner , repo });
 		const languageList: string = Object.keys(data)[0];
-		if (!languageList) {
-			console.log('no language');
-			return '';
-		}
 		return(languageList);
 	} catch (error) {
 		// console.log("this2")

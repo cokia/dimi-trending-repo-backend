@@ -2,6 +2,7 @@ import express, { Application } from 'express';
 import { getAllRepo } from './githubapi';
 import { addDBUser } from './db';
 import cors from 'cors';
+require('console-stamp')(console, 'mm/dd HH:MM');
 
 class App {
 	public application: Application;
@@ -22,8 +23,6 @@ app.all('/*', function(req, res, next) {
 
 app.listen(3001,() => {
 	console.log('✅ Start dimi-tranding-repo api server✅');
-	getAllRepo('cokia');
-
 });
 
 app.get('/', function(req, res) {
@@ -41,17 +40,21 @@ app.get('/api/v1/get/rankeduser', function(req, res) {
 
 app.post('/api/v1/useradd', function(req, res) {
 	let name  = req.query.name;
-	console.log(name);
 	let department = req.query.department;
 	let year = req.query.year;
 
-	let githubid = req.query.githubid;
+  let githubid = req.query.githubid;
+  console.info("[👤 useradd req]" + name + "(" + githubid + ")");
 	try {
 		addDBUser(name,department,year,githubid,'1');
-		res.status(200).send('success');
+		res.status(200).send('user add success');
 	} catch (err) {
 		console.error(err);
 		res.status(500).send(err);
-	}
-	getAllRepo(githubid);
+  }
+  
+  getAllRepo(githubid);
+  console.info("[👤 useradd done]" + name + "(" + githubid + ")");
+
 });
+

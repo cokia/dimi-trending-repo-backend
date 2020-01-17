@@ -17,6 +17,7 @@
     "@octokit/rest": "^16.36.0",
     "@types/cors": "^2.8.6",
     "@types/mongoose": "^5.5.39",
+    "console-stamp": "^0.2.9",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "global": "^4.4.0",
