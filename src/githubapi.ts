@@ -81,7 +81,7 @@ interface IRepoInformation {
 	svn_url: string;
 	homepage: string;
 	size: string;
-	stargazers_count: string;
+	stargazers_count:  Number;
 	watchers_count: string;
 	language: string;
 	has_issues: string;
@@ -89,7 +89,7 @@ interface IRepoInformation {
 	has_downloads: string;
 	has_wiki: string;
 	has_pages: string;
-	forks_count: string;
+	forks_count: Number;
 	mirror_url: string;
 	archived: string;
 	disabled: string;
@@ -125,7 +125,7 @@ export async function getRepoLanguage(owner: string, repo: string): Promise<stri
 }
 
 export async function getAllRepo(username: string) {
-	const { data }: { data: IRepoInformation[] } = await octokit.repos.listForUser({ username });
+	const { data }: { data: IRepoInformation[] } = await octokit.repos.listForUser({ username ,per_page: 100});
 	data.forEach(async (_data: IRepoInformation) => {
 		const _name = _data.name;
 		const _url = _data.url;

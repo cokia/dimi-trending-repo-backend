@@ -19,8 +19,8 @@ interface IRepo extends Document {
 	repourl: string;
 	description: string;
 	stargazer: string;
-	stargazer_count: string;
-	forkazger: string;
+	stargazer_count: Number;
+	forkazger: Number;
 	language: string;
 }
 
@@ -34,8 +34,8 @@ const repoSchema = new Schema({
 	repourl: { type: String, required: true },
 	description: { type: String, required: false },
 	stargazer: { type: Array, required: true },
-	stargazer_count: { type: String, required: true },
-	forkazger_count: { type: String, required: true },
+	stargazer_count: { type: Number, required: true },
+	forkazger_count: { type: Number, required: true },
 	language: { type: String, required: false }
 });
 
@@ -67,7 +67,7 @@ export async function addDBUser(name: string, department: string, year: string, 
   }
 }
 
-export async function addDBRepo(username: string, reponame: string, repourl: string, description: string,  stargazer: string[] | undefined,stargazer_count: string, forkazger_count: string, language: string | undefined) {
+export async function addDBRepo(username: string, reponame: string, repourl: string, description: string,  stargazer: string[] | undefined,stargazer_count: Number, forkazger_count: Number, language: string | undefined) {
 //   try {
 	const Repo = mongoose.model('repo', repoSchema);
 	const userInfo = await callFromUserDB(username);
@@ -92,15 +92,11 @@ export async function addDBRepo(username: string, reponame: string, repourl: str
 export async function callFromUserDB(username: string) {
 	return User.findOne({ githubid: username });
 }
-export async function repoDBRank() {
-	try {
-	Repo.find(function(repos) {
-	// console.log(repos);
-	return(repos);
-  });
-  } catch (error) {
-	console.log('Error!');
+
+export async function repoReturn() {
+  const Repo = mongoose.model('repo', repoSchema);
+  return(await(Repo.find().sort( { "stargazer_count": -1} ).limit(10)))
+  // return(Repo.find().sort( { "stargazer_count": -1, "forkazger_count": -1 } ));
   }
-}
 
 // repoDBRank()
