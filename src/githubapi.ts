@@ -125,8 +125,8 @@ export async function getRepoStargazers(owner: string, repo: string): Promise<st
 // 	}
 // }
 
-export async function getAllRepo(githubid: string,username:string,type:Boolean) {
-	const { data }: { data: IRepoInformation[] } = await octokit.repos.listForUser({ username ,per_page: 100});
+export async function getAllRepo(githubid: string,name:string) {
+	const { data }: { data: IRepoInformation[] } = await octokit.repos.listForUser({ githubid ,per_page: 100});
 	data.forEach(async (_data: IRepoInformation) => {
 		const _name = _data.name;
 		const _url = _data.url;
@@ -136,12 +136,7 @@ export async function getAllRepo(githubid: string,username:string,type:Boolean) 
     // const _language =  await getRepoLanguage(username, _data.name);
     const _language =  _data.language;
     const _forkagzer_count = _data.forks_count;
-    if (type ==true){
-      addDBRepo(username,_name,_url,_description,_stargazer,_stargazer_count,_forkagzer_count,_language);
-    }
-    // else if(type == false){
-    //   addTempRepo(username,_name,_url,_description,_stargazer,_stargazer_count,_forkagzer_count,_language)
-    // }
+      addDBRepo(githubid,_name,_url,_description,_stargazer,_stargazer_count,_forkagzer_count,_language);
 	});
 }
 

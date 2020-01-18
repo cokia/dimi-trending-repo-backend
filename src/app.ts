@@ -45,14 +45,14 @@ app.post('/api/v1/useradd', function(req, res) {
   let githubid = req.query.githubid;
   console.info("[👤 useradd req]" + name + "(" + githubid + ")");
 	try {
-		addDBUser(name,department,year,githubid,'1');
+		addDBUser(name,department,year,githubid);
 		res.status(200).send('user add success');
 	} catch (err) {
 		console.error(err);
 		res.status(500).send(err);
   }
   
-  getAllRepo(githubid,name,true);
+  getAllRepo(githubid,name);
   console.info("[👤 useradd done]" + name + "(" + githubid + ")");
 
 });

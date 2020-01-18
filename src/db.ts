@@ -61,28 +61,28 @@ const userSchema = new Schema({
 
 const User = mongoose.model<IUser>('user', userSchema);
 
-export async function addDBUser(name: string, department: string, year: string, githubid: string, starcount: string) {
+export async function addDBUser(name: string, department: string, year: string, githubid: string) {
   const count = await(await(User.find({githubid: githubid}).countDocuments()))
   if (count==0) {
-  let user = new User({ name,githubid,year,department,starcount });
+  let user = new User({ name,githubid,year,department });
   user.save();
 } else if(count!=0) {
   console.info("[👤 user exist]" + name + "(" + githubid + ")");
   }
 }
 
-export async function addDBRepo(username: string, reponame: string, repourl: string, description: string,  stargazer: string[] | undefined,stargazer_count: Number, forkazger_count: Number, language: string | undefined) {
+export async function addDBRepo(githubid:string, reponame: string, repourl: string, description: string,  stargazer: string[] | undefined,stargazer_count: Number, forkazger_count: Number, language: string | undefined) {
 //   try {
 	const Repo = mongoose.model('repo', repoSchema);
-	const userInfo = await callFromUserDB(username);
+	const userInfo = await callFromUserDB(githubid);
 	if (!userInfo) {
 	console.log('no user info. user add error');
 	return;
   }
-  const {department, year, githubid } = userInfo;
+  const {department, year, name } = userInfo;
   const count = await(await(Repo.find({repourl: repourl}).countDocuments()))
 	if (count==0) {
-	let repo = new Repo({ username, department, year, githubid, reponame, repourl, description, stargazer, stargazer_count, forkazger_count, language });
+	let repo = new Repo({ name, department, year, githubid, reponame, repourl, description, stargazer, stargazer_count, forkazger_count, language });
   repo.save();
   } 
   else if(count!=0) {
@@ -93,8 +93,8 @@ export async function addDBRepo(username: string, reponame: string, repourl: str
   }
 }
 
-export async function callFromUserDB(username: string) {
-	return User.findOne({ githubid: username });
+export async function callFromUserDB(githubid: string) {
+	return User.findOne({ githubid });
 }
 
 export async function repoReturn() {
