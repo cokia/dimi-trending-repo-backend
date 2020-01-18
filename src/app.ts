@@ -52,7 +52,7 @@ app.post('/api/v1/useradd', function(req, res) {
 		res.status(500).send(err);
   }
   
-  getAllRepo(githubid);
+  getAllRepo(githubid,name,true);
   console.info("[👤 useradd done]" + name + "(" + githubid + ")");
 
 });
