@@ -23,6 +23,7 @@
     "global": "^4.4.0",
     "mongoose": "^5.8.5",
     "node": "^13.5.0",
+    "requests": "^0.3.0",
     "tslint": "^5.20.1",
     "tslint-config-standard": "^9.0.0"
   },

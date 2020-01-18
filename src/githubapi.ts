@@ -1,4 +1,5 @@
 import { addDBRepo } from './db';
+import https from "https"
 const Octokit = require('@octokit/rest');
 const octokit = new Octokit({
 	auth: '772cdf29b49f3fc14f56a611b100b03f6075423e'
@@ -114,15 +115,15 @@ export async function getRepoStargazers(owner: string, repo: string): Promise<st
 	return value;
 }
 
-export async function getRepoLanguage(owner: string, repo: string): Promise<string | undefined> {
-	try {
-		const { data } = await octokit.repos.listLanguages({ owner , repo });
-		const languageList: string = Object.keys(data)[0];
-		return(languageList);
-	} catch (error) {
-		// console.log("this2")
-	}
-}
+// export async function getRepoLanguage(owner: string, repo: string): Promise<string | undefined> {
+// 	try {
+// 		const { data } = await octokit.repos.listLanguages({ owner , repo });
+// 		const languageList: string = Object.keys(data)[0];
+// 		return(languageList);
+// 	} catch (error) {
+// 		// console.log("this2")
+// 	}
+// }
 
 export async function getAllRepo(username: string) {
 	const { data }: { data: IRepoInformation[] } = await octokit.repos.listForUser({ username ,per_page: 100});
@@ -132,8 +133,77 @@ export async function getAllRepo(username: string) {
 		const _description = _data.description;
 		const _stargazer_count = _data.stargazers_count;
 		const _stargazer = await getRepoStargazers(username, _data.name);
-		const _language =  await getRepoLanguage(username, _data.name);
+    // const _language =  await getRepoLanguage(username, _data.name);
+    const _language =  _data.language;
 		const _forkagzer_count = _data.forks_count;
 		addDBRepo(username,_name,_url,_description,_stargazer,_stargazer_count,_forkagzer_count,_language);
 	});
 }
+getUserTotalStar
+  /* This Function is  based on  https://github.com/yyx990803/starz/ Starz project by yyx990803. thx*/
+  export function getUserTotalStar(user:string){
+  request('/users/' + user, function (res: { public_repos: number; message: any; }) {
+    if (!res.public_repos) {
+        console.log(res.message)
+        return
+    }
+    var pages = Math.ceil(res.public_repos / 100),
+        i = pages,
+        repos: any[] = []
+    while (i--) {
+        request('/users/' + user + '/repos?per_page=100&page=' + (i + 1), check)
+    }
+    function check (res: any) {
+        repos = repos.concat(res)
+        pages--
+        if (!pages) output(repos)
+    }
+  })
+
+function request (url: string, cb: { (res: any): void; (arg0: any): void; }) {
+    var reqOpts = {
+        hostname: 'api.github.com',
+        path: url,
+        headers: {'User-Agent': 'GitHub StarCounter'},
+        auth: "974a4f8d4b9f38dca57914cf5139890797691158" || undefined
+    }
+    https.request(reqOpts, function (res) {
+      var body = ''
+      res
+          .on('data', function (buf) {
+              body += buf.toString()
+          })
+          .on('end', function () {
+              cb(JSON.parse(body))
+          })
+  }).end()
+}
+ 
+function output (repos: any[]) {
+    var total = 0,
+        longest = 0,
+        list = repos
+            .filter(function (r: { stargazers_count: number; name: string | any[]; }) {
+                total += r.stargazers_count
+                    if (r.name.length > longest) {
+                        longest = r.name.length
+                    return true
+                }
+            })
+            .sort(function (a: { stargazers_count: number; }, b: { stargazers_count: number; }) {
+                return b.stargazers_count - a.stargazers_count
+            })
+
+    if (list.length > 5) {
+        list = list.slice(0, 5)
+    }
+
+    console.log('\nTotal: ' + total + '\n')
+    console.log(list.map(function (r: { name: string | any[]; stargazers_count: void; }) {
+        return r.name +
+            new Array(longest - r.name.length + 4).join(' ') 
+            r.stargazers_count
+    }).join('\n'))
+    console.log()
+}
+  }
