@@ -138,9 +138,7 @@ export async function getRepoStargazers(owner: string, repo: string): Promise<st
   const value: string[] = [];
   try {
     const { data }: {data: IRepoStargazer[] } = await octokit.activity.listStargazersForRepo({ owner, repo });
-// console.log(data);
-// console.log(data.forEach(async (e) =>await value.push(e.login)))
-    data.forEach(async (e) => value.push(e.login));
+    for (const { login } of data) value.push(login);
   } catch (error) {
 // console.log(owner,repo)
   }
@@ -163,9 +161,8 @@ export async function getAllRepo(githubid: string,name: string) {
   user_starcount = 0;
   const { data }: { data: IRepoInformation[] } = await octokit.repos.listForUser({ username ,per_page: 30 });
   // // let a  = data.forEach(async (_data: IRepoInformation) => {
-  // let a = data.map(async function(_data) {
-  let a = data.map(async _data => async () => {
-
+  // let a = data.map(async function(_data) { =
+  let a = data.map(async _data => async () => { /;
     const _name = _data.name;
     const _url = _data.url;
     const _description = _data.description;
