@@ -22,7 +22,7 @@ app.all('/*', function(req, res, next) {
 });
 
 app.listen(3001,() => {
-  console.log('✅ Start dimi-tranding-repo api server✅');
+  console.info('✅ Start dimi-tranding-repo api server✅');
 });
 
 app.get('/', function(req, res) {
@@ -48,7 +48,7 @@ app.post('/api/v1/useradd', async function(req, res) {
   let year = req.query.year;
   let githubid = req.query.githubid;
   let dimigoinID = req.query.dimigoinID;
-  console.info('[👤 useradd req]' + name + '(' + githubid + ')');
+  console.log('[👤 useradd req]' + name + '(' + githubid + ')');
   try {
     if (dimigoinID === undefined) {
       addDBUser(name,undefined,department,year,githubid);
@@ -61,8 +61,8 @@ app.post('/api/v1/useradd', async function(req, res) {
     res.status(500).send(err);
   }
   const starcount = await(getAllRepo(githubid,name));
-  console.log('total' + starcount);
-  userStarCountUpdate(starcount,githubid);
-  console.info('[👤 useradd done]' + name + '(' + githubid + ')');
+  await userStarCountUpdate(starcount,githubid);
+  console.log('[👤 useradd done]' + name + '(' + githubid + ')');
 
 });
+ 

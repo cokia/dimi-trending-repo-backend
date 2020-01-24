@@ -4,10 +4,10 @@ const Schema = mongoose.Schema;
 
 mongoose.connection.on('error', console.error);
 mongoose.connection.once('open', function() {
-  console.log('✅ Connected to mongod server✅');
+  console.info('✅ Connected to mongod server✅');
 });
 
-mongoose.connect('mongodb://docker.cloudus.io/dimi-tranding-repo-test',{ useNewUrlParser: true,useUnifiedTopology: true });
+mongoose.connect('mongodb://docker.cloudus.io/dimi-trending-repo',{ useNewUrlParser: true,useUnifiedTopology: true });
 interface IRepo extends Document {
 	// rank: string;
   name: string;
@@ -46,7 +46,6 @@ interface IUser extends Document {
   year: string;
   githubid: string;
   dimigoinID: String;
-  starcount: Number;
   bio: String;
   email: String;
   followers: number;
@@ -60,7 +59,6 @@ const userSchema = new Schema({
   year: { type: String, required: true },
   githubid: { type: String, required: true },
   dimigoinID: { type: String, required: false },
-  starcount: { type: Number, required: false },
   bio: { type: String, required: false },
   email: { type: String, required: false },
   followers: { type: Number, required: false },
@@ -83,11 +81,20 @@ export async function addDBUser(name: string,dimigoinID: string | undefined, dep
     let user = new User({ name,githubid,year,department,bio,email,followers,public_repos });
     user.save();
   } else if (count !== 0) {
-    console.info('[👤 user exist]' + name + '(' + githubid + ')');
+    console.log('[👤 user exist]' + name + '(' + githubid + ')');
   }
 }
 export async function userStarCountUpdate(starcount: number, githubid: string) {
-  User.update({ githubid: githubid }, { $set: { total_stars: starcount } });
+const User = mongoose.model<IUser>('user', userSchema);
+  // console.log(githubid + starcount)
+  // User.update({ githubid: githubid }, { $set: { total_stars: starcount } },{ multi: true });
+//  console.log(starcount)
+  const target_user= await(User.findOne({githubid}))
+    if(target_user){
+    target_user.total_stars = starcount;
+    target_user.save();
+    }
+
 }
 export async function addDBRepo(githubid: string, reponame: string, repourl: string, description: string,  stargazer: string[] | undefined,stargazer_count: Number, forkazger_count: Number, language: string | undefined) {
 //   try {

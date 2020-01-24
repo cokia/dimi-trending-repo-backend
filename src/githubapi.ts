@@ -149,20 +149,19 @@ export async function getRepoStargazers(owner: string, repo: string): Promise<st
 // 	try {
 // 		const { data } = await octokit.repos.listLanguages({ owner , repo });
 // 		const languageList: string = Object.keys(data)[0];
-// 		return(languageList);
+// 		return(languageList);```````````
 // 	} catch (error) {
 
 // 		// console.log("this2")
 // 	}
 // }
-
 export async function getAllRepo(githubid: string,name: string) {
   const username = githubid;
   user_starcount = 0;
-  const { data }: { data: IRepoInformation[] } = await octokit.repos.listForUser({ username ,per_page: 30 });
+  const { data }: { data: IRepoInformation[] } = await octokit.repos.listForUser({ username ,per_page: 100 });
   // // let a  = data.forEach(async (_data: IRepoInformation) => {
-  // let a = data.map(async function(_data) { =
-  let a = data.map(async _data => async () => { /;
+  let a = data.map(async function(_data) {
+  // let a = data.map(async _data => async () => {
     const _name = _data.name;
     const _url = _data.url;
     const _description = _data.description;
@@ -172,9 +171,7 @@ export async function getAllRepo(githubid: string,name: string) {
     const _language =  _data.language;
     const _forkagzer_count = _data.forks_count;
     addDBRepo(githubid,_name,_url,_description,_stargazer,_stargazer_count,_forkagzer_count,_language);
-    user_starcount += _stargazer_count;
-    console.log(_stargazer_count);
-    console.log(user_starcount);
+    user_starcount += _stargazer_count
   }
   );
   await Promise.all(a);
