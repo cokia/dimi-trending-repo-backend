@@ -171,7 +171,7 @@ export async function getAllRepo(githubid: string,name: string) {
     const _language =  _data.language;
     const _forkagzer_count = _data.forks_count;
     addDBRepo(githubid,_name,_url,_description,_stargazer,_stargazer_count,_forkagzer_count,_language);
-    user_starcount += _stargazer_count
+    user_starcount += _stargazer_count;
   }
   );
   await Promise.all(a);

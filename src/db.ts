@@ -85,15 +85,13 @@ export async function addDBUser(name: string,dimigoinID: string | undefined, dep
   }
 }
 export async function userStarCountUpdate(starcount: number, githubid: string) {
-const User = mongoose.model<IUser>('user', userSchema);
-  // console.log(githubid + starcount)
-  // User.update({ githubid: githubid }, { $set: { total_stars: starcount } },{ multi: true });
-//  console.log(starcount)
-  const target_user= await(User.findOne({githubid}))
-    if(target_user){
+  const User = mongoose.model<IUser>('user', userSchema);
+  // tslint:disable-next-line: await-promise
+  const target_user = await(User.findOne({ githubid }));
+  if (target_user) {
     target_user.total_stars = starcount;
     target_user.save();
-    }
+  }
 
 }
 export async function addDBRepo(githubid: string, reponame: string, repourl: string, description: string,  stargazer: string[] | undefined,stargazer_count: Number, forkazger_count: Number, language: string | undefined) {

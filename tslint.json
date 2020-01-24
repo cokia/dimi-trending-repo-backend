@@ -5,6 +5,7 @@
         "semicolon": [true, "always"],
         "variable-name":false,
         "no-multi-spaces":false,
-        "no-floating-promises":false
+        "no-floating-promises":false,
+        "no-conditional-assignment":false
     }
 }

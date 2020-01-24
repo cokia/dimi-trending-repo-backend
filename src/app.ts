@@ -65,4 +65,3 @@ app.post('/api/v1/useradd', async function(req, res) {
   console.log('[👤 useradd done]' + name + '(' + githubid + ')');
 
 });
- 
