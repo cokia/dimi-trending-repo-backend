@@ -1,0 +1,17 @@
+name: auto deploy
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: [self-hosted, linux]
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Auto Deploy
+      run: |
+        yarn
+        rm -rf bin && tsc-watch -p . --onSuccess 
+        pm2 stop app
+        pm2 start bin/app.js
