@@ -11,6 +11,10 @@ jobs:
     - uses: actions/checkout@v1
     - name: Auto Deploy
       run: |
+        cd ../
+        cd project 
+        cd dimi-trending-repo-backend
+        cd dimi-trending-repo-backend
         yarn
         rm -rf bin
         tsc
