@@ -1,9 +1,0 @@
-{
-  "singleQuote": true,
-  "packagemanager": "yarn",
-  "parser": "typescript",
-  "semi": true,
-  "useTabs": true,
-  "tabWidth": 4,
-  "printWidth": 120
-}
