@@ -144,17 +144,19 @@ export async function getRepoStargazers(owner: string, repo: string): Promise<st
   }
   return value;
 }
+/*
+//get repo language information function
+export async function getRepoLanguage(owner: string, repo: string): Promise<string | undefined> {
+	try {
+		const { data } = await octokit.repos.listLanguages({ owner , repo });
+		const languageList: string = Object.keys(data)[0];
+		return(languageList);```````````
+	} catch (error) {
 
-// export async function getRepoLanguage(owner: string, repo: string): Promise<string | undefined> {
-// 	try {
-// 		const { data } = await octokit.repos.listLanguages({ owner , repo });
-// 		const languageList: string = Object.keys(data)[0];
-// 		return(languageList);```````````
-// 	} catch (error) {
-
-// 		// console.log("this2")
-// 	}
-// }
+		// console.log("this2")
+	}
+}
+*/
 export async function getAllRepo(githubid: string,name: string) {
   const username = githubid;
   user_starcount = 0;
