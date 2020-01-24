@@ -34,7 +34,7 @@ app.get('/api/v1/get/rankedrepo', async function(req,res) {
 });
 
 app.get('/api/v1/get/rankeduser', function(req, res) {
-  res.status(400).send({ error: 'is still develop..OTL i will dev ASAP :D' });
+  // res.status(400).send({ error: 'is still develop..OTL i will dev ASAP :D' });
 });
 app.get('/api/v1/get/user', async function(req,res) {
   const githubid = req.query.githubid;
