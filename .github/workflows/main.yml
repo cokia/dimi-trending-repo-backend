@@ -12,6 +12,6 @@ jobs:
     - name: Auto Deploy
       run: |
         yarn
-        rm -rf bin && tsc-watch -p . --onSuccess 
+        rm -rf bin && tsc
         pm2 stop app
         pm2 start bin/app.js
