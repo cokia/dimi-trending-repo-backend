@@ -22,7 +22,7 @@ app.all('/*', function(req, res, next) {
 });
 
 app.listen(3001,() => {
-  console.info('✅ Start dimi-tranding-repo api server✅');
+  console.info('✅ Start dimi-trending-repo api server✅');
 });
 
 app.get('/', function(req, res) {
