@@ -26,6 +26,7 @@
     "mongoose": "^5.8.5",
     "node": "^13.5.0",
     "requests": "^0.3.0",
+    "tsc": "^1.20150623.0",
     "tslint": "^5.20.1",
     "tslint-config-standard": "^9.0.0"
   },
@@ -34,6 +35,6 @@
     "@types/node": "^13.1.4",
     "prettier-tslint": "^0.4.2",
     "tsc-watch": "^4.1.0",
-    "typescript": "^3.7.4"
+    "typescript": "^3.7.5"
   }
 }
