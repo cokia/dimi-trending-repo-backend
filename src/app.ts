@@ -1,6 +1,6 @@
 import express, { Application } from 'express';
 import { getAllRepo } from './githubapi';
-import { addDBUser,repoReturn,userStarCountUpdate,oneUserReturn } from './db';
+import { addDBUser,repoReturn,userReturn,userStarCountUpdate,oneUserReturn } from './db';
 import cors from 'cors';
 require('console-stamp')(console, 'mm/dd HH:MM:ss.l');
 
@@ -33,8 +33,8 @@ app.get('/api/v1/get/rankedrepo', async function(req,res) {
   res.status(200).send(await(repoReturn()));
 });
 
-app.get('/api/v1/get/rankeduser', function(req, res) {
-  // res.status(400).send({ error: 'is still develop..OTL i will dev ASAP :D' });
+app.get('/api/v1/get/rankeduser', async function(req, res) {
+  res.status(200).send(await(userReturn()));
 });
 app.get('/api/v1/get/user', async function(req,res) {
   const githubid = req.query.githubid;

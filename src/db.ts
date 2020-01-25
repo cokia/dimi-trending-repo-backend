@@ -122,12 +122,17 @@ export async function callFromUserDB(githubid: string) {
 
 export async function repoReturn() {
   const Repo = mongoose.model('repo', repoSchema);
-  return((Repo.find().sort({ 'stargazer_count': -1 }).limit(100)));
+  return((Repo.find().select({ _id: 0,__v: 0 }).sort({ 'stargazer_count': -1 }).limit(100)));
+  // return(Repo.find().sort( { "stargazer_count": -1, "forkazger_count": -1 } ));
+}
+export async function userReturn() {
+  const User = mongoose.model<IUser>('user', userSchema);
+  return((User.find().select({ _id: 0,__v: 0 }).sort({ 'total_star': -1 }).limit(100)));
   // return(Repo.find().sort( { "stargazer_count": -1, "forkazger_count": -1 } ));
 }
 
 export async function oneUserReturn(githubid: string) {
-  return((User.findOne({ 'githubid': githubid },{ _id : 0, _v : 0 })));
+  return((User.findOne({ 'githubid': githubid }, { _id: 0,__v: 0 })));
 }
 
 // repoDBRank()
