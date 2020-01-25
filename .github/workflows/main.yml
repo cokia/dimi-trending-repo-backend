@@ -9,9 +9,19 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Auto Deploy
-      run: |
+    - name: yarn install
+      run:
         yarn
-        rm -rf bin && tsc
-        pm2 stop app
+        
+    - name: remove bin
+      run:
+        rm -rf bin
+
+    - name: typescript compile
+      run: tsc
+    
+    - name: run process with pm2
+      run: |
+        pm2 stop 0
+        pm2 delete 0
         pm2 start bin/app.js
