@@ -18,7 +18,7 @@ jobs:
         rm -rf bin
 
     - name: typescript compile
-      run: tsc
+      run: npx tsc
     
     - name: run process with pm2
       run: |
