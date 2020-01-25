@@ -18,9 +18,7 @@ jobs:
         rm -rf bin
 
     - name: typescript compile
-      uses: iCrawl/action-tsc@v1
-      with:
-        build: bin/
+      run: tsc
     
     - name: run process with pm2
       run: |
