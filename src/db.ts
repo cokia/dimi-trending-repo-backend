@@ -136,7 +136,7 @@ export async function oneUserReturn(githubid: string) {
 }
 
 export async function userRankedRepos(githubid: string) {
-  return((Repo.find({ githubid }).select({ __v: 0 }).sort({ 'stargazer_count': -1 }).limit(5)));
+  return((Repo.find({ githubid }).select({ __v: 0 }).sort({ 'stargazer_count': -1 }).limit(10)));
 }
 
 // repoDBRank()
