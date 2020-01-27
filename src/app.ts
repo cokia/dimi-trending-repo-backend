@@ -1,6 +1,6 @@
 import express, { Application } from 'express';
 import { getAllRepo } from './githubapi';
-import { addDBUser,repoReturn,userReturn,userStarCountUpdate,oneUserReturn } from './db';
+import { addDBUser,userRankedRepos,repoReturn,userReturn,userStarCountUpdate,oneUserReturn } from './db';
 import cors from 'cors';
 require('console-stamp')(console, 'mm/dd HH:MM:ss.l');
 
@@ -33,6 +33,10 @@ app.get('/api/v1/get/rankedrepo', async function(req,res) {
   res.status(200).send(await(repoReturn()));
 });
 
+app.get('/api/v1/get/userrankedrepo', async function(req,res) {
+  res.status(200).send(await(userRankedRepos(req.query.githubid)));
+});
+
 app.get('/api/v1/get/rankeduser', async function(req, res) {
   res.status(200).send(await(userReturn()));
 });
@@ -47,7 +51,7 @@ app.post('/api/v1/useradd', async function(req, res) {
   let department = req.query.department;
   let year = req.query.year;
   let githubid = req.query.githubid;
-  let dimigoinID = req.query.dimigoinID;
+  let dimigoinID = req.query.dimigoinid;
   console.log('[👤 useradd req]' + name + '(' + githubid + ')');
   try {
     if (dimigoinID === undefined) {
