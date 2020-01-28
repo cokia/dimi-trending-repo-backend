@@ -165,7 +165,7 @@ export async function getAllRepo(githubid: string,name: string) {
   let a = data.map(async function(_data) {
   // let a = data.map(async _data => async () => {
     const _name = _data.name;
-    const _url = 'https://github.com/' + githubid + ' / ' + name;
+    const _url = 'https://github.com/' + githubid + '/' + _data.name;
     const _description = _data.description;
     const _stargazer_count = _data.stargazers_count;
     const _stargazer = await getRepoStargazers(githubid, _data.name);
