@@ -140,7 +140,6 @@ export async function getRepoStargazers(owner: string, repo: string): Promise<st
     const { data }: {data: IRepoStargazer[] } = await octokit.activity.listStargazersForRepo({ owner, repo });
     for (const { login } of data) value.push(login);
   } catch (error) {
-// console.log(owner,repo)
   }
   return value;
 }
@@ -161,15 +160,14 @@ export async function getAllRepo(githubid: string,name: string) {
   const username = githubid;
   user_starcount = 0;
   const { data }: { data: IRepoInformation[] } = await octokit.repos.listForUser({ username ,per_page: 100 });
-  // // let a  = data.forEach(async (_data: IRepoInformation) => {
   let a = data.map(async function(_data) {
-  // let a = data.map(async _data => async () => {
     const _name = _data.name;
     const _url = 'https://github.com/' + githubid + '/' + _data.name;
     const _description = _data.description;
     const _stargazer_count = _data.stargazers_count;
     const _stargazer = await getRepoStargazers(githubid, _data.name);
     // const _language =  await getRepoLanguage(username, _data.name);
+    /* 두번 리퀘스트 날리는 코드라 별로임 */
     const _language =  _data.language;
     const _forkagzer_count = _data.forks_count;
     addDBRepo(githubid,_name,_url,_description,_stargazer,_stargazer_count,_forkagzer_count,_language);
@@ -178,31 +176,6 @@ export async function getAllRepo(githubid: string,name: string) {
   );
   await Promise.all(a);
   return user_starcount;
-//   return (await Promise.all(
-//     data.map(async user => {
-//       const {
-//             name,
-//             url,
-//             description,
-//             stargazers_count,
-//             language,
-//             forks_count
-//         } = user;
-//       const stargazer = await getRepoStargazers(githubid, name);
-
-//       addDBRepo(
-//             githubid,
-//             name,
-//             url,
-//             description,
-//             stargazer,
-//             stargazers_count,
-//             forks_count,
-//             language
-//         );
-//       return stargazers_count;
-//     })
-// )).reduce((a, b) => a + b);
 }
 
 export async function getUserDetailInformation(githubid: string) {
